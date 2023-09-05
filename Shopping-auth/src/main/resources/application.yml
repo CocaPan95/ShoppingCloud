@@ -1,0 +1,10 @@
+server:
+  port: 8301
+spring:
+  application:
+    name: shop-auth
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://10.1.8.34:8848
+
