@@ -1,6 +1,9 @@
 server:
   port: 8301
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   application:
     name: shop-auth
   cloud:

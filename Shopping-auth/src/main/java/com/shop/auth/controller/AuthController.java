@@ -3,6 +3,8 @@ package com.shop.auth.controller;
 import com.shop.auth.domain.Oauth2TokenDto;
 import com.shop.common.constant.AuthConstant;
 import com.shop.model.api.CommonResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
@@ -22,12 +24,13 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/oauth")
+@Api(tags = "AuthController", description = "认证中心登录认证")
 public class AuthController {
 
     @Autowired
     private TokenEndpoint tokenEndpoint;
 
-
+    @ApiOperation("Oauth2获取token")
     @RequestMapping(value = "/token", method = RequestMethod.POST)
     public CommonResult<Oauth2TokenDto> postAccessToken(HttpServletRequest request,
                                                         @RequestParam String grant_type,
