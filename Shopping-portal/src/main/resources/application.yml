@@ -1,6 +1,13 @@
 server:
   port: 5100
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  servlet:
+    multipart:
+      enabled: true #开启文件上传
+      max-file-size: 10MB #限制文件上传大小为10M
   application:
     name: shop-portal
   cloud:

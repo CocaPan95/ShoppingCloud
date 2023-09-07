@@ -19,9 +19,9 @@ public class SwaggerConfig extends BaseSwaggerConfig {
     public SwaggerProperties swaggerProperties() {
         return SwaggerProperties.builder()
                 .apiBasePackage("com.shop.auth.controller")
-                .title("mall认证中心")
-                .description("mall认证中心相关接口文档")
-                .contactName("macro")
+                .title("shop认证中心")
+                .description("shop认证中心相关接口文档")
+                .contactName("coca")
                 .version("1.0")
                 .enableSecurity(true)
                 .build();

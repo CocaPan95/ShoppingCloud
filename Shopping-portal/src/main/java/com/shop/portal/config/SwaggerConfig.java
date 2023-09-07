@@ -1,4 +1,4 @@
-package com.shop.admin.config;
+package com.shop.portal.config;
 
 import com.shop.common.config.BaseSwaggerConfig;
 import com.shop.common.domain.SwaggerProperties;
@@ -18,9 +18,9 @@ public class SwaggerConfig extends BaseSwaggerConfig {
     @Override
     public SwaggerProperties swaggerProperties() {
         return SwaggerProperties.builder()
-                .apiBasePackage("com.shop.admin.controller")
-                .title("shop后台系统")
-                .description("shop后台相关接口文档")
+                .apiBasePackage("com.shop.portal.controller")
+                .title("shop前台系统")
+                .description("shop前台相关接口文档")
                 .contactName("coca")
                 .version("1.0")
                 .enableSecurity(true)
@@ -32,4 +32,3 @@ public class SwaggerConfig extends BaseSwaggerConfig {
         return generateBeanPostProcessor();
     }
 }
-
