@@ -1,0 +1,51 @@
+version: '3'
+services:
+  shop-admin:
+    image: shop/shop-admin:0.0.1-SNAPSHOT
+    container_name: shop-admin
+    ports:
+      - 5000:5000
+    volumes:
+      - E:/Docker/project/shop-admin/logs:/var/logs
+    environment:
+      - 'TZ="Asia/Shanghai"'
+
+  shop-portal:
+    image: shop/shop-portal:0.0.1-SNAPSHOT
+    container_name: shop-portal
+    ports:
+      - 5100:5100
+    volumes:
+      - E:/Docker/project/shop-portal/logs:/var/logs
+    environment:
+      - 'TZ="Asia/Shanghai"'
+
+  shop-auth:
+    image: shop/shop-auth:0.0.1-SNAPSHOT
+    container_name: shop-auth
+    ports:
+      - 8301:8301
+    volumes:
+      - E:/Docker/project/shop-auth/logs:/var/logs
+    environment:
+      - 'TZ="Asia/Shanghai"'
+
+  shop-gateway:
+    image: shop/shop-gateway:0.0.1-SNAPSHOT
+    container_name: shop-gateway
+    ports:
+      - 8401:8401
+    volumes:
+      - E:/Docker/project/shop-gateway/logs:/var/logs
+    environment:
+      - 'TZ="Asia/Shanghai"'
+
+  shop-monitor:
+    image: shop/shop-monitor:0.0.1-SNAPSHOT
+    container_name: shop-monitor
+    ports:
+      - 8101:8101
+    volumes:
+      - E:/Docker/project/shop-monitor/logs:/var/logs
+    environment:
+      - 'TZ="Asia/Shanghai"'

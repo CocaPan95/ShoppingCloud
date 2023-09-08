@@ -1,5 +1,6 @@
 package com.shop.common.exception;
 
+
 import com.shop.model.api.CommonResult;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
