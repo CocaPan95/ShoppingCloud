@@ -29,7 +29,7 @@ public interface AuthConstant {
     /**
      * 后台管理接口路径匹配
      */
-    String ADMIN_URL_PATTERN = "/shopping-admin/**";
+    String ADMIN_URL_PATTERN = "/shop-admin/**";
 
     /**
      * Redis缓存权限规则key
