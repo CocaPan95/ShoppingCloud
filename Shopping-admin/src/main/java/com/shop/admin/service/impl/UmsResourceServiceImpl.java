@@ -1,6 +1,11 @@
 package com.shop.admin.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shop.admin.mapper.UmsResourceMapper;
 import com.shop.admin.mapper.UmsRoleMapper;
@@ -14,10 +19,8 @@ import com.shop.model.entity.UmsRoleResourceRelation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -38,6 +41,56 @@ public class UmsResourceServiceImpl extends ServiceImpl<UmsResourceMapper, UmsRe
     private UmsRoleMapper roleMapper;
     @Autowired
     private RedisService redisService;
+
+    @Override
+    public int create(UmsResource umsResource) {
+        umsResource.setCreateTime(LocalDateTime.now());
+        int count = baseMapper.insert(umsResource);
+        initResourceRolesMap();
+        return count;
+    }
+
+    @Override
+    public int update(Long id, UmsResource umsResource) {
+        umsResource.setId(id);
+        int count = baseMapper.updateById(umsResource);
+        initResourceRolesMap();
+        return count;
+    }
+
+    @Override
+    public UmsResource getItem(Long id) {
+        return baseMapper.selectById(id);
+    }
+
+    @Override
+    public int delete(Long id) {
+        int count = baseMapper.deleteById(id);
+        initResourceRolesMap();
+        return count;
+    }
+
+    @Override
+    public Page<UmsResource> list(Long categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum) {
+        Page<UmsResource> page=new Page<>(pageNum,pageSize);
+        LambdaQueryWrapper<UmsResource> resourceLambdaQueryWrapper=new LambdaQueryWrapper<>();
+        if(categoryId!=null){
+            resourceLambdaQueryWrapper.eq(UmsResource::getCategoryId,categoryId);
+        }
+        if(StrUtil.isNotEmpty(nameKeyword)){
+            resourceLambdaQueryWrapper.like(UmsResource::getName,nameKeyword);
+        }
+        if(StrUtil.isNotEmpty(urlKeyword)){
+            resourceLambdaQueryWrapper.like(UmsResource::getUrl,urlKeyword);
+        }
+        return baseMapper.selectPage(page,resourceLambdaQueryWrapper);
+    }
+
+    @Override
+    public List<UmsResource> listAll() {
+        return baseMapper.selectList(Wrappers.emptyWrapper());
+    }
+
 
     @Override
     public Map<String, List<String>> initResourceRolesMap() {

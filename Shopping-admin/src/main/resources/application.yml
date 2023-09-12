@@ -33,3 +33,9 @@ spring:
       stat-view-servlet: #访问监控网页的登录用户名和密码
         login-username: druid
         login-password: druid
+redis:
+  database: mall
+  key:
+    admin: 'ums:admin'
+  expire:
+    common: 86400 # 24小时

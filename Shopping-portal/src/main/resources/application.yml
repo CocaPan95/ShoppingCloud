@@ -27,3 +27,12 @@ spring:
       stat-view-servlet: #访问监控网页的登录用户名和密码
         login-username: druid
         login-password: druid
+redis:
+  database: mall
+  key:
+    authCode: 'ums:authCode'
+    orderId: 'oms:orderId'
+    member: 'ums:member'
+  expire:
+    authCode: 90 # 验证码超期时间
+    common: 86400 # 24小时

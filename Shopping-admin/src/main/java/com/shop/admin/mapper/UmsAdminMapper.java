@@ -2,6 +2,10 @@ package com.shop.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.shop.model.entity.UmsAdmin;
+import com.shop.model.entity.UmsRole;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +16,8 @@ import com.shop.model.entity.UmsAdmin;
  * @since 2023-09-04
  */
 public interface UmsAdminMapper extends BaseMapper<UmsAdmin> {
-
+    /**
+     * 获取用于所有角色
+     */
+    List<UmsRole> getRoleList(@Param("adminId") Long adminId);
 }
