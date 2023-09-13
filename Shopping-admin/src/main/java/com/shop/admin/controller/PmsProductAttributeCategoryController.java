@@ -29,12 +29,12 @@ public class PmsProductAttributeCategoryController {
     @ApiOperation("分页获取所有商品属性分类")
     @RequestMapping(value = "/GetProductAttributeCategoryList", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<Page<PmsProductAttributeCategory>> GetProductAttributeCategoryList(@RequestParam PageParam param) {
+    public CommonResult<Page<PmsProductAttributeCategory>> GetProductAttributeCategoryList(@RequestBody PageParam param) {
         Page<PmsProductAttributeCategory> pmsProductAttributeCategoryPage = productAttributeService.GetProductAttributeCategoryList(param);
         return CommonResult.success(pmsProductAttributeCategoryPage);
     }
 
-    @ApiOperation("查询单个商品属性")
+    @ApiOperation("查询单个商品属性分类")
     @RequestMapping(value = "/GetProductAttributeCategoryById", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<PmsProductAttributeCategory> GetProductAttributeCategoryById(@PathVariable Long id) {
