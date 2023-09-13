@@ -3,6 +3,7 @@ package com.shop.model.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,7 +21,7 @@ public class PmsProduct implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     private Long brandId;
@@ -77,25 +78,6 @@ public class PmsProduct implements Serializable {
 
     private BigDecimal price;
 
-    /**
-     * 促销价格
-     */
-    private BigDecimal promotionPrice;
-
-    /**
-     * 赠送的成长值
-     */
-    private Integer giftGrowth;
-
-    /**
-     * 赠送的积分
-     */
-    private Integer giftPoint;
-
-    /**
-     * 限制使用的积分数
-     */
-    private Integer usePointLimit;
 
     /**
      * 副标题
@@ -112,15 +94,7 @@ public class PmsProduct implements Serializable {
      */
     private BigDecimal originalPrice;
 
-    /**
-     * 库存
-     */
-    private Integer stock;
 
-    /**
-     * 库存预警值
-     */
-    private Integer lowStock;
 
     /**
      * 单位
@@ -164,26 +138,6 @@ public class PmsProduct implements Serializable {
      * 移动端网页详情
      */
     private String detailMobileHtml;
-
-    /**
-     * 促销开始时间
-     */
-    private LocalDateTime promotionStartTime;
-
-    /**
-     * 促销结束时间
-     */
-    private LocalDateTime promotionEndTime;
-
-    /**
-     * 活动限购数量
-     */
-    private Integer promotionPerLimit;
-
-    /**
-     * 促销类型：0->没有促销使用原价;1->使用促销价；2->使用会员价；3->使用阶梯价格；4->使用满减价格；5->限时购
-     */
-    private Integer promotionType;
 
     /**
      * 品牌名称
@@ -324,38 +278,6 @@ public class PmsProduct implements Serializable {
         this.price = price;
     }
 
-    public BigDecimal getPromotionPrice() {
-        return promotionPrice;
-    }
-
-    public void setPromotionPrice(BigDecimal promotionPrice) {
-        this.promotionPrice = promotionPrice;
-    }
-
-    public Integer getGiftGrowth() {
-        return giftGrowth;
-    }
-
-    public void setGiftGrowth(Integer giftGrowth) {
-        this.giftGrowth = giftGrowth;
-    }
-
-    public Integer getGiftPoint() {
-        return giftPoint;
-    }
-
-    public void setGiftPoint(Integer giftPoint) {
-        this.giftPoint = giftPoint;
-    }
-
-    public Integer getUsePointLimit() {
-        return usePointLimit;
-    }
-
-    public void setUsePointLimit(Integer usePointLimit) {
-        this.usePointLimit = usePointLimit;
-    }
-
     public String getSubTitle() {
         return subTitle;
     }
@@ -380,21 +302,6 @@ public class PmsProduct implements Serializable {
         this.originalPrice = originalPrice;
     }
 
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
-    public Integer getLowStock() {
-        return lowStock;
-    }
-
-    public void setLowStock(Integer lowStock) {
-        this.lowStock = lowStock;
-    }
 
     public String getUnit() {
         return unit;
@@ -484,38 +391,6 @@ public class PmsProduct implements Serializable {
         this.detailMobileHtml = detailMobileHtml;
     }
 
-    public LocalDateTime getPromotionStartTime() {
-        return promotionStartTime;
-    }
-
-    public void setPromotionStartTime(LocalDateTime promotionStartTime) {
-        this.promotionStartTime = promotionStartTime;
-    }
-
-    public LocalDateTime getPromotionEndTime() {
-        return promotionEndTime;
-    }
-
-    public void setPromotionEndTime(LocalDateTime promotionEndTime) {
-        this.promotionEndTime = promotionEndTime;
-    }
-
-    public Integer getPromotionPerLimit() {
-        return promotionPerLimit;
-    }
-
-    public void setPromotionPerLimit(Integer promotionPerLimit) {
-        this.promotionPerLimit = promotionPerLimit;
-    }
-
-    public Integer getPromotionType() {
-        return promotionType;
-    }
-
-    public void setPromotionType(Integer promotionType) {
-        this.promotionType = promotionType;
-    }
-
     public String getBrandName() {
         return brandName;
     }
@@ -535,48 +410,38 @@ public class PmsProduct implements Serializable {
     @Override
     public String toString() {
         return "PmsProduct{" +
-        "id=" + id +
-        ", brandId=" + brandId +
-        ", productCategoryId=" + productCategoryId +
-        ", feightTemplateId=" + feightTemplateId +
-        ", productAttributeCategoryId=" + productAttributeCategoryId +
-        ", name=" + name +
-        ", pic=" + pic +
-        ", productSn=" + productSn +
-        ", deleteStatus=" + deleteStatus +
-        ", publishStatus=" + publishStatus +
-        ", newStatus=" + newStatus +
-        ", recommandStatus=" + recommandStatus +
-        ", verifyStatus=" + verifyStatus +
-        ", sort=" + sort +
-        ", sale=" + sale +
-        ", price=" + price +
-        ", promotionPrice=" + promotionPrice +
-        ", giftGrowth=" + giftGrowth +
-        ", giftPoint=" + giftPoint +
-        ", usePointLimit=" + usePointLimit +
-        ", subTitle=" + subTitle +
-        ", description=" + description +
-        ", originalPrice=" + originalPrice +
-        ", stock=" + stock +
-        ", lowStock=" + lowStock +
-        ", unit=" + unit +
-        ", weight=" + weight +
-        ", previewStatus=" + previewStatus +
-        ", serviceIds=" + serviceIds +
-        ", keywords=" + keywords +
-        ", note=" + note +
-        ", albumPics=" + albumPics +
-        ", detailTitle=" + detailTitle +
-        ", detailDesc=" + detailDesc +
-        ", detailHtml=" + detailHtml +
-        ", detailMobileHtml=" + detailMobileHtml +
-        ", promotionStartTime=" + promotionStartTime +
-        ", promotionEndTime=" + promotionEndTime +
-        ", promotionPerLimit=" + promotionPerLimit +
-        ", promotionType=" + promotionType +
-        ", brandName=" + brandName +
-        ", productCategoryName=" + productCategoryName +
-        "}";
+                "id=" + id +
+                ", brandId=" + brandId +
+                ", productCategoryId=" + productCategoryId +
+                ", feightTemplateId=" + feightTemplateId +
+                ", productAttributeCategoryId=" + productAttributeCategoryId +
+                ", name=" + name +
+                ", pic=" + pic +
+                ", productSn=" + productSn +
+                ", deleteStatus=" + deleteStatus +
+                ", publishStatus=" + publishStatus +
+                ", newStatus=" + newStatus +
+                ", recommandStatus=" + recommandStatus +
+                ", verifyStatus=" + verifyStatus +
+                ", sort=" + sort +
+                ", sale=" + sale +
+                ", price=" + price +
+                ", subTitle=" + subTitle +
+                ", description=" + description +
+                ", originalPrice=" + originalPrice +
+                ", unit=" + unit +
+                ", weight=" + weight +
+                ", previewStatus=" + previewStatus +
+                ", serviceIds=" + serviceIds +
+                ", keywords=" + keywords +
+                ", note=" + note +
+                ", albumPics=" + albumPics +
+                ", detailTitle=" + detailTitle +
+                ", detailDesc=" + detailDesc +
+                ", detailHtml=" + detailHtml +
+                ", detailMobileHtml=" + detailMobileHtml +
+                ", brandName=" + brandName +
+                ", productCategoryName=" + productCategoryName +
+                "}";
     }
 }

@@ -3,6 +3,7 @@ package com.shop.model.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -19,7 +20,7 @@ public class PmsSkuStock implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     private Long productId;
@@ -158,17 +159,17 @@ public class PmsSkuStock implements Serializable {
     @Override
     public String toString() {
         return "PmsSkuStock{" +
-        "id=" + id +
-        ", productId=" + productId +
-        ", skuCode=" + skuCode +
-        ", price=" + price +
-        ", stock=" + stock +
-        ", lowStock=" + lowStock +
-        ", pic=" + pic +
-        ", sale=" + sale +
-        ", promotionPrice=" + promotionPrice +
-        ", lockStock=" + lockStock +
-        ", spData=" + spData +
-        "}";
+                "id=" + id +
+                ", productId=" + productId +
+                ", skuCode=" + skuCode +
+                ", price=" + price +
+                ", stock=" + stock +
+                ", lowStock=" + lowStock +
+                ", pic=" + pic +
+                ", sale=" + sale +
+                ", promotionPrice=" + promotionPrice +
+                ", lockStock=" + lockStock +
+                ", spData=" + spData +
+                "}";
     }
 }
