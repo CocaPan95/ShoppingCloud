@@ -23,6 +23,7 @@
         <hutool.version>5.8.0</hutool.version>
         <knife4j.version>3.0.3</knife4j.version>
         <docker.host>http://localhost:2375</docker.host>
+        <minio.version>8.4.1</minio.version>
         <docker.maven.plugin.version>0.40.0</docker.maven.plugin.version>
         <admin-starter-server.version>2.7.0</admin-starter-server.version>
     </properties>
@@ -114,6 +115,11 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-server</artifactId>
                 <version>${admin-starter-server.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

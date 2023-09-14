@@ -9,8 +9,6 @@ import com.shop.model.dto.ProductAttributeParam;
 import com.shop.model.entity.PmsProductAttribute;
 import com.shop.model.entity.PmsProductAttributeCategory;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,9 +45,9 @@ public class PmsProductAttributeCategoryController {
     @ResponseBody
     public CommonResult ProductAttributeCategorySave(@RequestBody PmsProductAttributeCategory model) {
         if (productAttributeService.ProductAttributeCategorySave(model)) {
-            return CommonResult.success("修改成功！");
+            return CommonResult.success("操作成功！");
         } else {
-            return CommonResult.failed("修改失败！");
+            return CommonResult.failed("操作失败！");
         }
     }
 
@@ -78,9 +76,9 @@ public class PmsProductAttributeCategoryController {
     @ResponseBody
     public CommonResult ProductAttributeSave(@RequestBody PmsProductAttribute model) {
         if (productAttributeService.ProductAttributeSave(model)) {
-            return CommonResult.success("修改成功！");
+            return CommonResult.success("操作成功！");
         } else {
-            return CommonResult.failed("修改失败！");
+            return CommonResult.failed("操作失败！");
         }
     }
 
