@@ -66,7 +66,7 @@ public class PmsProductAttributeCategoryController {
     @ApiOperation("根据分类查询属性列表或参数列表")
     @RequestMapping(value = "/GetProductAttributeList", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<Page<PmsProductAttribute>> GetProductAttributeList(@RequestParam ProductAttributeParam param) {
+    public CommonResult<Page<PmsProductAttribute>> GetProductAttributeList(@RequestBody ProductAttributeParam param) {
         Page<PmsProductAttribute> productAttributeList = productAttributeService.GetProductAttributeList(param);
         return CommonResult.success(productAttributeList);
     }

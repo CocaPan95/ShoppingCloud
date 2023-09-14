@@ -40,7 +40,7 @@ redis:
   expire:
     common: 86400 # 24小时
 minio:
-  endpoint: http://locahost:9000 #MinIO服务所在地址
+  endpoint: http://10.1.8.34:9090 #MinIO服务所在地址
   bucketName: shop #存储桶名称
   accessKey: fDRwk18sOCJKoAbl4gjk #访问的key
   secretKey: X6IdzqSBQMHxOuxjBzS868GaPdsJshkOEUWmOqMh #访问的秘钥
