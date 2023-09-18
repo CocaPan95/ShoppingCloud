@@ -6,11 +6,14 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shop.admin.mapper.PmsBrandMapper;
+import com.shop.admin.mapper.PmsProductMapper;
 import com.shop.admin.service.IPmsBrandService;
 import com.shop.model.dto.PmsBrandParam;
 import com.shop.model.entity.PmsBrand;
+import com.shop.model.entity.PmsProduct;
 import com.shop.model.entity.PmsProductAttribute;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -26,6 +29,10 @@ import java.util.List;
  */
 @Service
 public class PmsBrandServiceImpl extends ServiceImpl<PmsBrandMapper, PmsBrand> implements IPmsBrandService {
+
+    @Autowired
+    private PmsProductMapper productMapper;
+
     @Override
     public List<PmsBrand> listAllBrand() {
         return baseMapper.selectList(Wrappers.emptyWrapper());
@@ -52,11 +59,11 @@ public class PmsBrandServiceImpl extends ServiceImpl<PmsBrandMapper, PmsBrand> i
             pmsBrand.setFirstLetter(pmsBrand.getName().substring(0, 1));
         }
         //更新品牌时要更新商品中的品牌名称
-//        PmsProduct product = new PmsProduct();
-//        product.setBrandName(pmsBrand.getName());
-//        PmsProductExample example = new PmsProductExample();
-//        example.createCriteria().andBrandIdEqualTo(id);
-//        productMapper.updateByExampleSelective(product,example);
+        PmsProduct product = new PmsProduct();
+        product.setBrandName(pmsBrand.getName());
+        LambdaQueryWrapper<PmsProduct> productLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        productLambdaQueryWrapper.eq(PmsProduct::getBrandId, id);
+        productMapper.update(product, productLambdaQueryWrapper);
         return baseMapper.updateById(pmsBrand);
     }
 
@@ -75,10 +82,10 @@ public class PmsBrandServiceImpl extends ServiceImpl<PmsBrandMapper, PmsBrand> i
         Page<PmsBrand> page = new Page<>(pageNum, pageSize);
         LambdaQueryWrapper<PmsBrand> brandLambdaQueryWrapper = new LambdaQueryWrapper<>();
         if (!StringUtils.isEmpty(keyword)) {
-            brandLambdaQueryWrapper.like(PmsBrand::getName,keyword);
+            brandLambdaQueryWrapper.like(PmsBrand::getName, keyword);
         }
         brandLambdaQueryWrapper.orderByDesc(PmsBrand::getSort);
-        return baseMapper.selectPage(page,brandLambdaQueryWrapper);
+        return baseMapper.selectPage(page, brandLambdaQueryWrapper);
     }
 
     @Override
@@ -91,7 +98,7 @@ public class PmsBrandServiceImpl extends ServiceImpl<PmsBrandMapper, PmsBrand> i
         PmsBrand pmsBrand = new PmsBrand();
         pmsBrand.setShowStatus(showStatus);
         LambdaQueryWrapper<PmsBrand> brandLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        brandLambdaQueryWrapper.in(PmsBrand::getId,ids);
+        brandLambdaQueryWrapper.in(PmsBrand::getId, ids);
         return baseMapper.update(pmsBrand, brandLambdaQueryWrapper);
     }
 
@@ -100,7 +107,7 @@ public class PmsBrandServiceImpl extends ServiceImpl<PmsBrandMapper, PmsBrand> i
         PmsBrand pmsBrand = new PmsBrand();
         pmsBrand.setFactoryStatus(factoryStatus);
         LambdaQueryWrapper<PmsBrand> brandLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        brandLambdaQueryWrapper.in(PmsBrand::getId,ids);
+        brandLambdaQueryWrapper.in(PmsBrand::getId, ids);
         return baseMapper.update(pmsBrand, brandLambdaQueryWrapper);
     }
 }

@@ -55,11 +55,16 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         int count = baseMapper.insert(product);
 
         Long productId = product.getId();
+
+        for (PmsProductAttributeValue pmsProductAttributeValue : productParam.getProductAttributeValueList()) {
+            pmsProductAttributeValue.setProductId(productId);
+            productAttributeValueMapper.insert(pmsProductAttributeValue);
+        }
         //处理sku的编码
         handleSkuStockCode(productParam.getSkuStockList(), productId);
 
         for (PmsSkuStock pmsSkuStock : productParam.getSkuStockList()) {
-            pmsSkuStock.setId(productId);
+            pmsSkuStock.setProductId(productId);
             skuStockMapper.insert(pmsSkuStock);
         }
         return count;

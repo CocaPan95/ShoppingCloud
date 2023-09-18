@@ -11,9 +11,11 @@ import com.shop.admin.service.IPmsProductAttributeService;
 import com.shop.common.exception.Asserts;
 import com.shop.model.api.CommonResult;
 import com.shop.model.dto.PageParam;
+import com.shop.model.dto.PmsProductAttributeParam;
 import com.shop.model.dto.ProductAttributeParam;
 import com.shop.model.entity.PmsProductAttribute;
 import com.shop.model.entity.PmsProductAttributeCategory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,116 +31,79 @@ import java.util.List;
  */
 @Service
 public class PmsProductAttributeServiceImpl extends ServiceImpl<PmsProductAttributeMapper, PmsProductAttribute> implements IPmsProductAttributeService {
-    @Autowired
-    private PmsProductAttributeCategoryMapper productAttributeCategoryMapper;
+
 
     @Autowired
     private PmsProductAttributeMapper productAttributeMapper;
+    @Autowired
+    private PmsProductAttributeCategoryMapper productAttributeCategoryMapper;
 
     @Override
-    public Page<PmsProductAttributeCategory> GetProductAttributeCategoryList(PageParam param) {
-        Page<PmsProductAttributeCategory> page = new Page<>(param.getPageNum(), param.getPageSize());
-        return productAttributeCategoryMapper.selectPage(page, Wrappers.emptyWrapper());
+    public Page<PmsProductAttribute> getList(Long cid, Integer type, Integer pageSize, Integer pageNum) {
+        Page<PmsProductAttribute> page = new Page<>(pageNum, pageSize);
+        LambdaQueryWrapper<PmsProductAttribute> productAttributeLambdaQueryWrapper=new LambdaQueryWrapper<>();
+        productAttributeLambdaQueryWrapper.orderByDesc(PmsProductAttribute::getSort);
+        productAttributeLambdaQueryWrapper.eq(PmsProductAttribute::getType,type);
+        productAttributeLambdaQueryWrapper.eq(PmsProductAttribute::getProductAttributeCategoryId,cid);
+        return productAttributeMapper.selectPage(page,productAttributeLambdaQueryWrapper);
     }
 
     @Override
-    public PmsProductAttributeCategory GetProductAttributeCategoryById(Long id) {
-        return productAttributeCategoryMapper.selectById(id);
-    }
-
-    @Override
-    public boolean ProductAttributeCategorySave(PmsProductAttributeCategory model) {
-        if (model.getId() > 0) {
-            PmsProductAttributeCategory productAttributeCategory = productAttributeCategoryMapper.selectById(model.getId());
-            if (productAttributeCategory == null) {
-                Asserts.fail("产品属性分类为空！");
-            }
-            productAttributeCategory.setName(model.getName());
-            if (productAttributeCategoryMapper.updateById(productAttributeCategory) > 0) {
-                return true;
-            }
-        } else {
-            PmsProductAttributeCategory productAttributeCategory = new PmsProductAttributeCategory();
-            productAttributeCategory.setName(model.getName());
-            productAttributeCategory.setAttributeCount(0);
-            productAttributeCategory.setParamCount(0);
-            if (productAttributeCategoryMapper.insert(productAttributeCategory) > 0) {
-                return true;
-            }
+    public int create(PmsProductAttributeParam pmsProductAttributeParam) {
+        PmsProductAttribute pmsProductAttribute = new PmsProductAttribute();
+        BeanUtils.copyProperties(pmsProductAttributeParam, pmsProductAttribute);
+        int count = productAttributeMapper.insert(pmsProductAttribute);
+        //新增商品属性以后需要更新商品属性分类数量
+        PmsProductAttributeCategory pmsProductAttributeCategory = productAttributeCategoryMapper.selectById(pmsProductAttribute.getProductAttributeCategoryId());
+        if (pmsProductAttribute.getType() == 0) {
+            pmsProductAttributeCategory.setAttributeCount(pmsProductAttributeCategory.getAttributeCount() + 1);
+        } else if (pmsProductAttribute.getType() == 1) {
+            pmsProductAttributeCategory.setParamCount(pmsProductAttributeCategory.getParamCount() + 1);
         }
-        return false;
+        productAttributeCategoryMapper.updateById(pmsProductAttributeCategory);
+        return count;
     }
 
     @Override
-    public boolean ProductAttributeCategoryDel(List<Long> ids) {
-        //如果有产品在使用这个禁止删除
-        if (productAttributeCategoryMapper.deleteBatchIds(ids) > 0) {
-            return true;
-        }
-        return false;
+    public int update(Long id, PmsProductAttributeParam productAttributeParam) {
+        PmsProductAttribute pmsProductAttribute = new PmsProductAttribute();
+        pmsProductAttribute.setId(id);
+        BeanUtils.copyProperties(productAttributeParam, pmsProductAttribute);
+        return productAttributeMapper.updateById(pmsProductAttribute);
     }
 
     @Override
-    public Page<PmsProductAttribute> GetProductAttributeList(ProductAttributeParam param) {
-        Page<PmsProductAttribute> page = new Page<>(param.getPageNum(), param.getPageSize());
-        LambdaQueryWrapper<PmsProductAttribute> productAttributeLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        productAttributeLambdaQueryWrapper.eq(PmsProductAttribute::getProductAttributeCategoryId, param.getAttributeCategoryId());
-        productAttributeLambdaQueryWrapper.eq(PmsProductAttribute::getType, param.getType());
-        return productAttributeMapper.selectPage(page, productAttributeLambdaQueryWrapper);
+    public PmsProductAttribute getItem(Long id) {
+        return productAttributeMapper.selectById(id);
     }
 
     @Override
-    public boolean ProductAttributeSave(PmsProductAttribute model) {
-        if (model.getId() > 0) {
-            PmsProductAttribute pmsProductAttribute = productAttributeMapper.selectById(model.getId());
-            if (pmsProductAttribute == null) {
-                Asserts.fail("产品属性为空！");
-            }
-            if (productAttributeMapper.updateById(model) > 0) {
-                return true;
-            }
-        } else {
-
-            if (productAttributeMapper.insert(model) > 0) {
-                PmsProductAttributeCategory productAttributeCategory = productAttributeCategoryMapper.selectById(model.getId());
-                if (model.getType() == 0) {
-                    productAttributeCategory.setAttributeCount(productAttributeCategory.getAttributeCount() + 1);
-                }
-                if (model.getType() == 1) {
-                    productAttributeCategory.setParamCount(productAttributeCategory.getParamCount() + 1);
-                }
-                if (productAttributeCategoryMapper.updateById(productAttributeCategory) > 0) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean ProductAttributeDel(List<Long> ids) {
-        PmsProductAttribute productAttribute = productAttributeMapper.selectById(ids.get(0));
-        PmsProductAttributeCategory pmsProductAttributeCategory = productAttributeCategoryMapper.selectById(productAttribute.getProductAttributeCategoryId());
-        if (productAttribute.getType() == 0) {
-            if (pmsProductAttributeCategory.getAttributeCount() >= ids.size()) {
-                pmsProductAttributeCategory.setAttributeCount(pmsProductAttributeCategory.getAttributeCount() - ids.size());
+    public int delete(List<Long> ids) {
+        //获取分类
+        PmsProductAttribute pmsProductAttribute = productAttributeMapper.selectById(ids.get(0));
+        Integer type = pmsProductAttribute.getType();
+        PmsProductAttributeCategory pmsProductAttributeCategory = productAttributeCategoryMapper.selectById(pmsProductAttribute.getProductAttributeCategoryId());
+        LambdaQueryWrapper<PmsProductAttribute> productAttributeLambdaQueryWrapper=new LambdaQueryWrapper<>();
+        productAttributeLambdaQueryWrapper.in(PmsProductAttribute::getId,ids);
+        int count = productAttributeMapper.delete(productAttributeLambdaQueryWrapper);
+        //删除完成后修改数量
+        if (type == 0) {
+            if (pmsProductAttributeCategory.getAttributeCount() >= count) {
+                pmsProductAttributeCategory.setAttributeCount(pmsProductAttributeCategory.getAttributeCount() - count);
             } else {
                 pmsProductAttributeCategory.setAttributeCount(0);
             }
-        }
-        if (productAttribute.getType() == 1) {
-            if (pmsProductAttributeCategory.getParamCount() >= ids.size()) {
-                pmsProductAttributeCategory.setParamCount(pmsProductAttributeCategory.getParamCount() - ids.size());
+        } else if (type == 1) {
+            if (pmsProductAttributeCategory.getParamCount() >= count) {
+                pmsProductAttributeCategory.setParamCount(pmsProductAttributeCategory.getParamCount() - count);
             } else {
                 pmsProductAttributeCategory.setParamCount(0);
             }
         }
-        if (productAttributeMapper.deleteBatchIds(ids) > 0) {
-            if (productAttributeCategoryMapper.updateById(pmsProductAttributeCategory) > 0) {
-                return true;
-            }
-        }
-        return false;
+        productAttributeCategoryMapper.updateById(pmsProductAttributeCategory);
+        return count;
     }
+
+
 
 }

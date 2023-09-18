@@ -3,6 +3,7 @@ package com.shop.admin.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.shop.model.dto.PageParam;
+import com.shop.model.dto.PmsProductAttributeParam;
 import com.shop.model.dto.ProductAttributeParam;
 import com.shop.model.entity.PmsProductAttribute;
 import com.shop.model.entity.PmsProductAttributeCategory;
@@ -21,20 +22,31 @@ import java.util.List;
  */
 public interface IPmsProductAttributeService extends IService<PmsProductAttribute> {
 
-    Page<PmsProductAttributeCategory> GetProductAttributeCategoryList(PageParam param);
+    /**
+     * 根据分类分页获取商品属性
+     * @param cid 分类id
+     * @param type 0->属性；2->参数
+     */
+    Page<PmsProductAttribute> getList(Long cid, Integer type, Integer pageSize, Integer pageNum);
 
-    PmsProductAttributeCategory GetProductAttributeCategoryById(Long id);
+    /**
+     * 添加商品属性
+     */
+    @Transactional
+    int create(PmsProductAttributeParam pmsProductAttributeParam);
 
-    boolean ProductAttributeCategorySave(PmsProductAttributeCategory model);
+    /**
+     * 修改商品属性
+     */
+    int update(Long id, PmsProductAttributeParam productAttributeParam);
 
-    boolean ProductAttributeCategoryDel(List<Long> ids);
-
-    Page<PmsProductAttribute> GetProductAttributeList(ProductAttributeParam param);
+    /**
+     * 获取单个商品属性信息
+     */
+    PmsProductAttribute getItem(Long id);
 
     @Transactional
-    boolean ProductAttributeSave(PmsProductAttribute model);
+    int delete(List<Long> ids);
 
-    @Transactional
-    boolean ProductAttributeDel(List<Long> ids);
 
 }

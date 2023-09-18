@@ -2,9 +2,12 @@ package com.shop.admin.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.shop.admin.service.IPmsProductAttributeCategoryService;
 import com.shop.admin.service.IPmsProductAttributeService;
+import com.shop.admin.service.IPmsProductCategoryService;
 import com.shop.model.api.CommonResult;
 import com.shop.model.dto.PageParam;
+import com.shop.model.dto.PmsProductAttributeCategoryItem;
 import com.shop.model.dto.ProductAttributeParam;
 import com.shop.model.entity.PmsProductAttribute;
 import com.shop.model.entity.PmsProductAttributeCategory;
@@ -17,87 +20,62 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@Api(tags = "PmsProductAttributeController", description = "商品属性管理")
-@RequestMapping("/productAttribute")
+@Api(tags = "PmsProductAttributeCategoryController", description = "商品属性分类管理")
+@RequestMapping("/productAttribute/category")
 public class PmsProductAttributeCategoryController {
 
     @Autowired
-    private IPmsProductAttributeService productAttributeService;
+    private IPmsProductAttributeCategoryService productAttributeCategoryService;
 
-    @ApiOperation("分页获取所有商品属性分类")
-    @RequestMapping(value = "/GetProductAttributeCategoryList", method = RequestMethod.GET)
+    @ApiOperation("添加商品属性分类")
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Page<PmsProductAttributeCategory>> GetProductAttributeCategoryList(@RequestBody PageParam param) {
-        Page<PmsProductAttributeCategory> pmsProductAttributeCategoryPage = productAttributeService.GetProductAttributeCategoryList(param);
-        return CommonResult.success(pmsProductAttributeCategoryPage);
-    }
-
-    @ApiOperation("查询单个商品属性分类")
-    @RequestMapping(value = "/GetProductAttributeCategoryById", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult<PmsProductAttributeCategory> GetProductAttributeCategoryById(@PathVariable Long id) {
-        PmsProductAttributeCategory productAttributeCategory = productAttributeService.GetProductAttributeCategoryById(id);
-        return CommonResult.success(productAttributeCategory);
-    }
-
-    @ApiOperation("保存商品属性分类信息")
-    @RequestMapping(value = "/ProductAttributeCategorySave", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult ProductAttributeCategorySave(@RequestBody PmsProductAttributeCategory model) {
-        if (productAttributeService.ProductAttributeCategorySave(model)) {
-            return CommonResult.success("操作成功！");
+    public CommonResult create(@RequestParam String name) {
+        int count = productAttributeCategoryService.create(name);
+        if (count > 0) {
+            return CommonResult.success(count);
         } else {
-            return CommonResult.failed("操作失败！");
+            return CommonResult.failed();
         }
     }
 
+    @ApiOperation("修改商品属性分类")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult update(@PathVariable Long id, @RequestParam String name) {
+        int count = productAttributeCategoryService.update(id, name);
+        if (count > 0) {
+            return CommonResult.success(count);
+        } else {
+            return CommonResult.failed();
+        }
+    }
 
     @ApiOperation("删除单个商品属性分类")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult ProductAttributeCategoryDel(@RequestParam List<Long> ids) {
-        if (productAttributeService.ProductAttributeCategoryDel(ids)) {
-            return CommonResult.success("删除成功");
+    public CommonResult delete(@PathVariable Long id) {
+        int count = productAttributeCategoryService.delete(id);
+        if (count > 0) {
+            return CommonResult.success(count);
         } else {
-            return CommonResult.failed("删除失败");
+            return CommonResult.failed();
         }
     }
 
-    @ApiOperation("根据分类查询属性列表或参数列表")
-    @RequestMapping(value = "/GetProductAttributeList", method = RequestMethod.GET)
+    @ApiOperation("获取单个商品属性分类信息")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<Page<PmsProductAttribute>> GetProductAttributeList(@RequestBody ProductAttributeParam param) {
-        Page<PmsProductAttribute> productAttributeList = productAttributeService.GetProductAttributeList(param);
-        return CommonResult.success(productAttributeList);
+    public CommonResult<PmsProductAttributeCategory> getItem(@PathVariable Long id) {
+        PmsProductAttributeCategory productAttributeCategory = productAttributeCategoryService.getItem(id);
+        return CommonResult.success(productAttributeCategory);
     }
 
-    @ApiOperation("保存商品属性信息")
-    @RequestMapping(value = "/ProductAttributeSave", method = RequestMethod.POST)
+    @ApiOperation("分页获取所有商品属性分类")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult ProductAttributeSave(@RequestBody PmsProductAttribute model) {
-        if (productAttributeService.ProductAttributeSave(model)) {
-            return CommonResult.success("操作成功！");
-        } else {
-            return CommonResult.failed("操作失败！");
-        }
+    public CommonResult<Page<PmsProductAttributeCategory>> getList(@RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum) {
+        return CommonResult.success(productAttributeCategoryService.getList(pageSize, pageNum));
     }
 
-    @ApiOperation("查询单个商品属性")
-    @RequestMapping(value = "/GetProductAttributeById", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult<PmsProductAttribute> GetProductAttributeById(@PathVariable Long id) {
-        PmsProductAttribute productAttribute = productAttributeService.getById(id);
-        return CommonResult.success(productAttribute);
-    }
-
-    @ApiOperation("批量删除商品属性")
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult delete(@RequestParam("ids") List<Long> ids) {
-        if (productAttributeService.ProductAttributeDel(ids)) {
-            return CommonResult.success("删除成功");
-        } else {
-            return CommonResult.failed("删除失败");
-        }
-    }
 }
