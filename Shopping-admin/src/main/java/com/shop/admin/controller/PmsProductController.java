@@ -3,7 +3,6 @@ package com.shop.admin.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.shop.admin.service.IPmsProductService;
-import com.shop.admin.service.sqlserver.IBrandService;
 import com.shop.model.api.CommonResult;
 import com.shop.model.dto.PmsProductParam;
 import com.shop.model.dto.PmsProductQueryParam;
@@ -30,9 +29,6 @@ public class PmsProductController {
     @Autowired
     private IPmsProductService productService;
 
-
-    @Autowired
-    private IBrandService brandService;
 
     @ApiOperation("创建商品")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
