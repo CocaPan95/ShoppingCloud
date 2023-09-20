@@ -13,7 +13,7 @@ import com.shop.model.api.CommonResult;
 import com.shop.model.api.ResultCode;
 import com.shop.model.dto.UserDto;
 import com.shop.model.entity.UmsMember;
-import com.shop.portal.mapper.UmsMemberMapper;
+import com.shop.model.mapper.UmsMemberMapper;
 import com.shop.portal.service.AuthService;
 import com.shop.portal.service.IUmsMemberService;
 import com.shop.portal.service.UmsMemberCacheService;

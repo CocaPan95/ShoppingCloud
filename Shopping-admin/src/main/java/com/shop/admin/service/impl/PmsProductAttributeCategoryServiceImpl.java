@@ -3,11 +3,9 @@ package com.shop.admin.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shop.admin.mapper.PmsProductAttributeCategoryMapper;
 import com.shop.admin.service.IPmsProductAttributeCategoryService;
-import com.shop.common.exception.Asserts;
-import com.shop.model.dto.PmsProductAttributeCategoryItem;
 import com.shop.model.entity.PmsProductAttributeCategory;
+import com.shop.model.mapper.PmsProductAttributeCategoryMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

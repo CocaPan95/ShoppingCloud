@@ -1,21 +1,20 @@
 package com.shop.admin.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shop.admin.mapper.UmsResourceMapper;
-import com.shop.admin.mapper.UmsRoleMapper;
-import com.shop.admin.mapper.UmsRoleResourceRelationMapper;
 import com.shop.admin.service.IUmsResourceService;
 import com.shop.common.constant.AuthConstant;
 import com.shop.common.service.RedisService;
 import com.shop.model.entity.UmsResource;
 import com.shop.model.entity.UmsRole;
 import com.shop.model.entity.UmsRoleResourceRelation;
+import com.shop.model.mapper.UmsResourceMapper;
+import com.shop.model.mapper.UmsRoleMapper;
+import com.shop.model.mapper.UmsRoleResourceRelationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

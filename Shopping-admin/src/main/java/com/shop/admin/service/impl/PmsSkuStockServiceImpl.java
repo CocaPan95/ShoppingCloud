@@ -3,9 +3,9 @@ package com.shop.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shop.admin.mapper.PmsSkuStockMapper;
 import com.shop.admin.service.IPmsSkuStockService;
 import com.shop.model.entity.PmsSkuStock;
+import com.shop.model.mapper.PmsSkuStockMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

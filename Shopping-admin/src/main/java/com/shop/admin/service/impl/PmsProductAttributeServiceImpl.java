@@ -1,20 +1,14 @@
 package com.shop.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shop.admin.mapper.PmsProductAttributeCategoryMapper;
-import com.shop.admin.mapper.PmsProductAttributeMapper;
-import com.shop.admin.mapper.PmsProductAttributeValueMapper;
 import com.shop.admin.service.IPmsProductAttributeService;
-import com.shop.common.exception.Asserts;
-import com.shop.model.api.CommonResult;
-import com.shop.model.dto.PageParam;
 import com.shop.model.dto.PmsProductAttributeParam;
-import com.shop.model.dto.ProductAttributeParam;
 import com.shop.model.entity.PmsProductAttribute;
 import com.shop.model.entity.PmsProductAttributeCategory;
+import com.shop.model.mapper.PmsProductAttributeCategoryMapper;
+import com.shop.model.mapper.PmsProductAttributeMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

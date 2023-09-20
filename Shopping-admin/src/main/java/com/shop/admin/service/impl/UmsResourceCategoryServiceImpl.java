@@ -2,9 +2,9 @@ package com.shop.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shop.admin.mapper.UmsResourceCategoryMapper;
 import com.shop.admin.service.IUmsResourceCategoryService;
 import com.shop.model.entity.UmsResourceCategory;
+import com.shop.model.mapper.UmsResourceCategoryMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

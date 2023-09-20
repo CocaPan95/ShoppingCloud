@@ -1,14 +1,13 @@
 package com.shop.admin.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shop.admin.mapper.UmsMenuMapper;
 import com.shop.admin.service.IUmsMenuService;
 import com.shop.model.dto.UmsMenuNode;
 import com.shop.model.entity.UmsMenu;
+import com.shop.model.mapper.UmsMenuMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
