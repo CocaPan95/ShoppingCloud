@@ -7,6 +7,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@MapperScan({"com.shop.portal.mapper"})
+@MapperScan({"com.shop.portal.mapper","com.shop.model.mapper"})
 public class MyBatisConfig extends BaseMybatisPlusConfig {
 }
