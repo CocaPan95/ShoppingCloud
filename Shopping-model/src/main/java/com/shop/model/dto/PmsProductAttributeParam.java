@@ -2,9 +2,13 @@ package com.shop.model.dto;
 
 import com.shop.model.validator.FlagValidator;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotEmpty;
 
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class PmsProductAttributeParam {
     @NotEmpty
     @ApiModelProperty("属性分类ID")

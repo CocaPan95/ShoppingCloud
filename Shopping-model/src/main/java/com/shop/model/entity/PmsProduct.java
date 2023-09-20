@@ -106,15 +106,6 @@ public class PmsProduct implements Serializable {
      */
     private BigDecimal weight;
 
-    /**
-     * 是否为预告商品：0->不是；1->是
-     */
-    private Integer previewStatus;
-
-    /**
-     * 以逗号分割的产品服务：1->无忧退货；2->快速退款；3->免费包邮
-     */
-    private String serviceIds;
 
     private String keywords;
 
@@ -319,21 +310,7 @@ public class PmsProduct implements Serializable {
         this.weight = weight;
     }
 
-    public Integer getPreviewStatus() {
-        return previewStatus;
-    }
 
-    public void setPreviewStatus(Integer previewStatus) {
-        this.previewStatus = previewStatus;
-    }
-
-    public String getServiceIds() {
-        return serviceIds;
-    }
-
-    public void setServiceIds(String serviceIds) {
-        this.serviceIds = serviceIds;
-    }
 
     public String getKeywords() {
         return keywords;
@@ -431,8 +408,6 @@ public class PmsProduct implements Serializable {
                 ", originalPrice=" + originalPrice +
                 ", unit=" + unit +
                 ", weight=" + weight +
-                ", previewStatus=" + previewStatus +
-                ", serviceIds=" + serviceIds +
                 ", keywords=" + keywords +
                 ", note=" + note +
                 ", albumPics=" + albumPics +

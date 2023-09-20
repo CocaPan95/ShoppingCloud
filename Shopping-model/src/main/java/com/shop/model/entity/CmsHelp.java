@@ -3,6 +3,7 @@ package com.shop.model.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -19,7 +20,7 @@ public class CmsHelp implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     private Long categoryId;
@@ -104,14 +105,14 @@ public class CmsHelp implements Serializable {
     @Override
     public String toString() {
         return "CmsHelp{" +
-        "id=" + id +
-        ", categoryId=" + categoryId +
-        ", icon=" + icon +
-        ", title=" + title +
-        ", showStatus=" + showStatus +
-        ", createTime=" + createTime +
-        ", readCount=" + readCount +
-        ", content=" + content +
-        "}";
+                "id=" + id +
+                ", categoryId=" + categoryId +
+                ", icon=" + icon +
+                ", title=" + title +
+                ", showStatus=" + showStatus +
+                ", createTime=" + createTime +
+                ", readCount=" + readCount +
+                ", content=" + content +
+                "}";
     }
 }

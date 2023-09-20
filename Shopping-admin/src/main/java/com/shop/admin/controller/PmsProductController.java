@@ -3,11 +3,13 @@ package com.shop.admin.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.shop.admin.service.IPmsProductService;
+import com.shop.admin.service.sqlserver.IBrandService;
 import com.shop.model.api.CommonResult;
 import com.shop.model.dto.PmsProductParam;
 import com.shop.model.dto.PmsProductQueryParam;
 import com.shop.model.dto.PmsProductResult;
 import com.shop.model.entity.PmsProduct;
+import com.shop.model.entity.sqlserver.Brand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +30,15 @@ public class PmsProductController {
     @Autowired
     private IPmsProductService productService;
 
+
+    @Autowired
+    private IBrandService brandService;
+
     @ApiOperation("创建商品")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult create(@RequestBody PmsProductParam productParam) {
+
         int count = productService.create(productParam);
         if (count > 0) {
             return CommonResult.success(count);
