@@ -18,6 +18,9 @@
             <groupId>com.shop</groupId>
             <artifactId>Shopping-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
