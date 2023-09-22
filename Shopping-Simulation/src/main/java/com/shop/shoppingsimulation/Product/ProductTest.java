@@ -15,7 +15,6 @@ public class ProductTest {
         result = HttpUtils.HttpGet("shop-portal/product/categoryTreeList", result.getClass());
         return result;
     }
-
     public Page<PmsProduct> search(String keyword, String brandId, String productCategoryId, Integer pageNum, Integer pageSize, Integer sort){
         Page<PmsProduct> result=new Page<>();
         result = HttpUtils.HttpGet(String.format("shop-portal/product/search?keyword=%s&brandId=%s&productCategoryId=%s&pageNum=%s&pageSize=%s&sort=%s", keyword,brandId,productCategoryId,pageNum,pageSize,sort), result.getClass());
